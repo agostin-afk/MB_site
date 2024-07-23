@@ -1,0 +1,45 @@
+version: '3.9'
+
+services:
+  backend:
+    container_name: backend_container
+    build:
+      context: app/backend
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./app:/app
+      - ./data/web/static:/data/web/static/
+      - ./data/web/media:/data/web/media/
+    env_file:
+      - app/backend/api/dotenv-files/.env
+    depends_on:
+      - postgres
+    networks:
+      mynetwork:
+        ipv4_address: 172.20.0.4
+
+  # frontend:
+  #   build:
+  #     context: app/frontend
+  #     dockerfile: Dockerfile
+  #   container_name: frontend_container
+  #   ports:
+  #     - "3000:3000" # Ajuste a porta conforme necessário
+
+  postgres:
+    container_name: postgres_container
+    image: postgres:13-alpine
+    volumes:
+      - ./data/postgres/data:/var/lib/postgresql/data/
+    env_file:
+      - app/backend/api/dotenv-files/.env
+    networks:
+      mynetwork:
+        ipv4_address: 172.20.0.3
+networks:
+  mynetwork:
+    ipam:
+      driver: default
+      config:
+        - subnet: 172.20.0.0/16
