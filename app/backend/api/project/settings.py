@@ -2,10 +2,9 @@ import os
 from pathlib import Path
 from dotenv import load_dotenv
 
-BASE_DIR = Path(__file__).resolve().parent.parent
-
-load_dotenv(BASE_DIR / 'dotenv-files' / '.env', override=True)
-
+BASE_DIR = Path(__file__).resolve().parent.parent.parent
+DATA_DIR = BASE_DIR / 'data' / 'web'
+load_dotenv(BASE_DIR / 'api' / 'dotenv-files' / '.env', override=True)
 SECRET_KEY = os.getenv('SECRET_KEY', 'change-me')
 DEBUG = bool(int(os.getenv('DEBUG', 0)))
 
@@ -88,6 +87,44 @@ AUTH_PASSWORD_VALIDATORS = [
 
 
 
+AUTHENTICATION_BACKENDS = [
+    # AxesStandaloneBackend should be the first backend in the AUTHENTICATION_BACKENDS list.
+    'axes.backends.AxesStandaloneBackend',
+
+    # Django ModelBackend is the default authentication backend.
+    'django.contrib.auth.backends.ModelBackend',
+]
+
+SUMMERNOTE_CONFIG = {
+    'summernote': {
+        # Toolbar customization
+        # https://summernote.org/deep-dive/#custom-toolbar-popover
+        # 'toolbar': [
+        #     ['style', ['style', ]],
+        #     ['font', ['bold', 'italic', 'clear']],
+        #     ['color', ['color']],
+        #     ['para', ['ul', 'ol', 'paragraph', 'hr', ]],
+        #     ['table', ['table']],
+        #     ['insert', ['link', 'picture']],
+        #     ['view', ['fullscreen', 'codeview', 'undo', 'redo']],
+        # ],
+        'codemirror': {
+            'mode': 'htmlmixed',
+            'lineNumbers': 'true',
+            'lineWrapping': 'true',
+            'theme': 'dracula',
+        },
+    },
+    'css': (
+        '//cdnjs.cloudflare.com/ajax/libs/codemirror/6.65.7/theme/dracula.min.css',
+    ),
+    'attachment_filesize_limit': 30 * 1024 * 1024,
+    'attachment_model': 'blog.PostAttachment',
+}
+
+
+
+
 LANGUAGE_CODE = 'pt-br'
 
 TIME_ZONE = 'America/Sao_Paulo'
@@ -97,15 +134,23 @@ USE_I18N = True
 USE_TZ = True
 
 
-
-STATIC_URL = 'static/'
-
-
-DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
-
-
 REST_FRAMEWORK = {
     'DEFAULT_PERMISSION_CLASSES': [
         'rest_framework.permissions.DjangoModelPermissionsOrAnonReadOnly'
     ]
 }
+
+STATIC_URL = '/static/'
+
+STATIC_ROOT = DATA_DIR / 'static'
+
+MEDIA_URL = '/media/'
+
+MEDIA_ROOT = DATA_DIR / 'media'
+
+DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+AXES_ENABLED = True
+AXES_FAILURE_LIMIT = 3
+AXES_COOLOFF_TIME = 1  # 1 Hora
+AXES_RESET_ON_SUCCESS = True

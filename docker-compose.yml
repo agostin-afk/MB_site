@@ -14,7 +14,7 @@ services:
     env_file:
       - app/backend/api/dotenv-files/.env
     depends_on:
-      - postgres
+      - psql
     networks:
       mynetwork:
         ipv4_address: 172.20.0.4
@@ -27,8 +27,8 @@ services:
   #   ports:
   #     - "3000:3000" # Ajuste a porta conforme necessário
 
-  postgres:
-    container_name: postgres_container
+  psql:
+    container_name: psql
     image: postgres:13-alpine
     volumes:
       - ./data/postgres/data:/var/lib/postgresql/data/
