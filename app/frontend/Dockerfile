@@ -1,12 +1,14 @@
 FROM node:alpine
 
-WORKDIR /usr/src/app
 
-COPY package*.json ./
+COPY appmb /appmb
+COPY package*.json ./appmb/package*.json
+
+
+
+WORKDIR /appmb
 
 RUN npm install
-
-COPY . .
 
 RUN npm run build
 

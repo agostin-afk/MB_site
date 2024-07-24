@@ -19,13 +19,13 @@ services:
       mynetwork:
         ipv4_address: 172.20.0.4
 
-  # frontend:
-  #   build:
-  #     context: app/frontend
-  #     dockerfile: Dockerfile
-  #   container_name: frontend_container
-  #   ports:
-  #     - "3000:3000" # Ajuste a porta conforme necessário
+  frontend:
+    build:
+      context: app/frontend
+      dockerfile: Dockerfile
+    container_name: frontend_container
+    ports:
+      - "3000:3000" # Ajuste a porta conforme necessário
 
   psql:
     container_name: psql
