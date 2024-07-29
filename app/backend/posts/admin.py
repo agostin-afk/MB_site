@@ -8,17 +8,17 @@ from .models import  Post
 
 @admin.register(Post)
 class PostAdmin(SummernoteModelAdmin):
-    summernote_fields = ('content',)
-    list_display = 'id', 'title', 'is_published', 'created_by'
-    list_display_links = 'title',
-    search_fields = 'id', 'slug', 'title', 'excerpt', 'content',
+    summernote_fields = ('conteudo',)
+    list_display = 'id', 'titulo', 'is_published', 'created_by'
+    list_display_links = 'titulo',
+    search_fields = 'id', 'slug', 'titulo', 'resumo', 'conteudo',
     list_per_page = 50
     list_filter = 'is_published',
     list_editable = 'is_published',
     ordering = '-id',
     readonly_fields = 'created_at', 'updated_at', 'updated_by', 'created_by', 'link',
     prepopulated_fields = {
-        "slug": ('title',),
+        "slug": ('titulo',),
     }
     # autocomplete_fields = 'tags', 'category',
 

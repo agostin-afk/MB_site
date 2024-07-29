@@ -29,7 +29,7 @@ INSTALLED_APPS = [
     # meus apps
     'usuarios',
     'posts',
-    'setup', 
+    'pagamentos',
     
     # apps para a aplicação:
     'rest_framework',
