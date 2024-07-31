@@ -5,9 +5,11 @@ from django.urls import path, include
 
 from rest_framework import routers
 from posts.viewsets import PostViewSet
+from usuarios.viewsets import PerfilViewSet
 
 route = routers.DefaultRouter()
 route.register(r'posts', PostViewSet)
+route.register(r'createUser', PerfilViewSet)
 
 urlpatterns = [
     path('admin/', admin.site.urls),

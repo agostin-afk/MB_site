@@ -33,11 +33,13 @@ class Post(models.Model):
     class Meta:
         verbose_name = 'Post'
         verbose_name_plural = 'Posts'
-    title = models.CharField(max_length=65)
-    excerpt = models.CharField(max_length=155)
-    content = models.TextField()
-    cover = models.ImageField(upload_to="posts/%Y/%m/", blank=True, default='')
-    cover_in_post_content = models.BooleanField(default=True)
+    titulo = models.CharField(max_length=65)
+    resumo = models.CharField(max_length=155)
+    conteudo = models.TextField()
+    capa = models.ImageField(upload_to="posts/%Y/%m/", blank=True, default='')
+    capa_no_post = models.BooleanField(default=True)
+    preco_marketing = models.FloatField(default=0, verbose_name='preço')
+    preco_marketing_promocao = models.FloatField(default=0, verbose_name='preço promo')
     created_by = models.ForeignKey(
         User,
         on_delete=models.SET_NULL,
