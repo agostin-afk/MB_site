@@ -9,7 +9,7 @@ from usuarios.viewsets import PerfilViewSet
 
 route = routers.DefaultRouter()
 route.register(r'posts', PostViewSet)
-route.register(r'createUser', PerfilViewSet)
+route.register(r'perfil', PerfilViewSet)
 
 urlpatterns = [
     path('admin/', admin.site.urls),
