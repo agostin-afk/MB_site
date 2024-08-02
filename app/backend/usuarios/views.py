@@ -8,6 +8,15 @@ from django.contrib import messages
 import copy
 from rest_framework.views import APIView
 from . import models
+from django.contrib.auth.models import User
+from .serializers import RegisterSerializer
+from rest_framework import generics
+
+
+# class RegisterView(generics.CreateAPIView):
+#     queryset = User.objects.all()
+#     serializer_class = RegisterSerializer
+    
 # class Criar(APIView):
 #     def post(self, *args, **kwargs):
 
