@@ -33,7 +33,7 @@ INSTALLED_APPS = [
     
     # apps para a aplicação:
     'rest_framework',
-    'axes',
+    # 'axes',
     'django_summernote',
 ]
 
@@ -45,7 +45,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    'axes.middleware.AxesMiddleware',
+    # 'axes.middleware.AxesMiddleware',
     
 ]
 
@@ -105,7 +105,7 @@ REST_FRAMEWORK = {
 }
 
 AUTHENTICATION_BACKENDS = [
-    'axes.backends.AxesStandaloneBackend',
+    # 'axes.backends.AxesStandaloneBackend',
 
     'django.contrib.auth.backends.ModelBackend',
 ]
@@ -159,7 +159,7 @@ MEDIA_ROOT = DATA_DIR / 'media'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 
-AXES_ENABLED = True
-AXES_FAILURE_LIMIT = 3
-AXES_COOLOFF_TIME = 1  # 1 Hora
-AXES_RESET_ON_SUCCESS = True
+# AXES_ENABLED = True
+# AXES_FAILURE_LIMIT = 3
+# AXES_COOLOFF_TIME = 1  # 1 Hora
+# AXES_RESET_ON_SUCCESS = True

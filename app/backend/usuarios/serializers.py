@@ -3,7 +3,8 @@ from rest_framework import serializers
 from django.contrib.auth.models import User
 from rest_framework.validators import UniqueValidator
 from django.contrib.auth.password_validation import validate_password
-
+from django.contrib.auth import authenticate, login
+from rest_framework import serializers
 
 class RegisterSerializer(serializers.ModelSerializer):
     email = serializers.EmailField(
@@ -42,8 +43,31 @@ class RegisterSerializer(serializers.ModelSerializer):
 
         return user
 
-class PerfilSerializer(serializers.ModelSerializer):
-    
+class LoginSerializer(serializers.ModelSerializer):
     class Meta:
-        model = Perfil
-        fields = '__all__'
+        model = User
+        fields = ('username', 'password')
+    username = serializers.CharField(
+        label="Username",
+        write_only=True
+    )
+    password = serializers.CharField(
+        label="Password",
+        # style={'input_type': 'password'},
+        trim_whitespace=False,
+        write_only=True
+    )
+
+    def validate(self,request):
+        username = request.get('username')
+        password = request.get('password')
+        if username and password:
+            user_ = User.objects.get(username=username)
+            print(f'username: {username}\npassword: {password}')
+            login(request=request.session, user=user_)
+            user = authenticate(request, username=username, password=password)
+            print(f'User do authenticate: {user}')
+            if not user:
+                print(f'return dentro do if not user:{user}')
+                msg = 'Access denied: wrong username or password.'
+                raise serializers.ValidationError(msg, code='authorization')

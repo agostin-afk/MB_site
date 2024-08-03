@@ -5,12 +5,13 @@ from django.urls import path, include
 
 from rest_framework import routers
 from posts.viewsets import PostViewSet
-from usuarios.viewsets import PerfilViewSet, CreateUserViewSet
+from usuarios.viewsets import CreateUserViewSet, LoginViewSet
 
 route = routers.DefaultRouter()
-route.register(r'posts', PostViewSet)
-route.register(r'perfil', PerfilViewSet)
-route.register(r'createUser', CreateUserViewSet)
+route.register(r'posts', PostViewSet, basename='posts')
+# route.register(r'perfil', PerfilViewSet)
+route.register(r'loginUser', LoginViewSet , basename='login' )
+route.register(r'createUser', CreateUserViewSet, basename='createUser')
 
 urlpatterns = [
     path('admin/', admin.site.urls),

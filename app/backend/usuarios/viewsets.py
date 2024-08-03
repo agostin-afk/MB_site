@@ -7,6 +7,8 @@ class CreateUserViewSet(viewsets.ModelViewSet):
     queryset = User.objects.all()
     permission_classes = ()
     
-class PerfilViewSet(viewsets.ModelViewSet):
-    serializer_class = PerfilSerializer
-    queryset = Perfil.objects.all()
+class LoginViewSet(viewsets.ModelViewSet):
+    serializer_class = LoginSerializer
+    queryset = User.objects.all()
+    permission_classes = ()
+    
