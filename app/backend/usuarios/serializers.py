@@ -58,16 +58,18 @@ class LoginSerializer(serializers.ModelSerializer):
         write_only=True
     )
 
-    def validate(self,request):
-        username = request.get('username')
-        password = request.get('password')
+    def validate(self, data):
+        username = data.get('username')
+        password = data.get('password')
+        print(f'dados informados: {username}\n{password}')
         if username and password:
             user_ = User.objects.get(username=username)
-            print(f'username: {username}\npassword: {password}')
-            login(request=request.session, user=user_)
-            user = authenticate(request, username=username, password=password)
+            print(f'dados do usuario dentro do if:\nusername: {user_.username}\npassword: {user_.password}\nrst_name: {user_.first_name}')
+            user = authenticate(data, username=username, password=password)
             print(f'User do authenticate: {user}')
             if not user:
                 print(f'return dentro do if not user:{user}')
                 msg = 'Access denied: wrong username or password.'
                 raise serializers.ValidationError(msg, code='authorization')
+        print(f'o data: {data}')
+        return data
