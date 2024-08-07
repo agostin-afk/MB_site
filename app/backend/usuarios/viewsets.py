@@ -14,5 +14,5 @@ class CreateUserViewSet(viewsets.ModelViewSet):
 
 class LoginViewSet(viewsets.ModelViewSet):
     serializer_class = LoginSerializer
-    queryset = User.objects.all()
+    queryset = MyUserBase.objects.all()
     permission_classes = ()

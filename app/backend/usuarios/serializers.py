@@ -34,31 +34,32 @@ class RegisterSerializer(serializers.ModelSerializer):
         
         user.set_password(validated_data['password'])
         user.save()
-
         return user
 
 
-class LoginSerializer(serializers.ModelSerializer):
-    # email = serializers.EmailField(write_only=True, required=True)
+class LoginSerializer(serializers.Serializer):
     username = serializers.CharField(write_only=True, required=True)
     password = serializers.CharField(write_only=True, required=True)
 
     class Meta:
-        model = User
+        model = MyUserBase
         fields = ('username', 'password')
-        def validate(self, data):
-            username = data.get('username')
-            password = data.get('password')
-            # email = data.get('email')
-            if username and password:
-                user = User.objects.filter(username=username, password=password)
-                print(user)
-                if user:
-                    print('\n\n\nPassou, Usuario existe\n\n')
-                else:
-                    print('\n\nNão encontrado\n\n')
+
+    def validate(self, data):
+        username = data.get('username')
+        password = data.get('password')
+
+        if username and password:
+            user = authenticate(username=username, password=password)
+            # print(user.email)
+            if user:
+                data['user'] = user
             else:
-                raise serializers.ValidationError('Preencha todos os campos.')
+                raise serializers.ValidationError('Credenciais inválidas.')
+        else:
+            raise serializers.ValidationError('Preencha todos os campos.')
         
-            data['user'] = user
-            return data
+        return data
+
+    def create(self, validated_data):
+        return validated_data
