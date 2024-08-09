@@ -6,6 +6,7 @@ from debug_toolbar.toolbar import debug_toolbar_urls
 from rest_framework import routers
 from posts.viewsets import PostViewSet
 from usuarios.viewsets import CreateUserViewSet, LoginViewSet
+from pagamentos.viewsets import PagamentosViewSet
 
 
 route = routers.DefaultRouter()
